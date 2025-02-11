@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://d0kxhmauli16y"]
+
+[ext_resource type="PackedScene" uid="uid://cjyilbm4ucc7s" path="res://addons/godot-xr-tools/objects/climbable.tscn" id="1_1ygvb"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_r38e4"]
+size = Vector3(1, 20, 1)
+
+[node name="Climbable" instance=ExtResource("1_1ygvb")]
+
+[node name="CollisionShape3D" parent="." index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10, 0)
+shape = SubResource("BoxShape3D_r38e4")
+
+[node name="CSGBox3D" type="CSGBox3D" parent="." index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10, 0)
+size = Vector3(1, 20, 1)

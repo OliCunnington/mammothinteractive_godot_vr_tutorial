@@ -1,9 +1,13 @@
-[gd_scene load_steps=12 format=3 uid="uid://c4lemkqe4fy0g"]
+[gd_scene load_steps=16 format=3 uid="uid://c4lemkqe4fy0g"]
 
 [ext_resource type="Script" path="res://main.gd" id="1_ovuc1"]
 [ext_resource type="PackedScene" uid="uid://b4kad2kuba1yn" path="res://addons/godot-xr-tools/hands/scenes/lowpoly/left_hand_low.tscn" id="2_plvxx"]
 [ext_resource type="PackedScene" uid="uid://l2n30mpbkdyw" path="res://addons/godot-xr-tools/hands/scenes/lowpoly/right_hand_low.tscn" id="3_3t5kk"]
+[ext_resource type="PackedScene" uid="uid://fiul51tsyoop" path="res://addons/godot-xr-tools/functions/function_teleport.tscn" id="3_50ilm"]
 [ext_resource type="PackedScene" uid="uid://diyu06cw06syv" path="res://addons/godot-xr-tools/player/player_body.tscn" id="4_ogepq"]
+[ext_resource type="PackedScene" uid="uid://b4ysuy43poobf" path="res://addons/godot-xr-tools/functions/function_pickup.tscn" id="4_vlbyv"]
+[ext_resource type="PackedScene" uid="uid://bxm1ply47vaan" path="res://addons/godot-xr-tools/functions/movement_climb.tscn" id="7_o2ut6"]
+[ext_resource type="PackedScene" uid="uid://d0kxhmauli16y" path="res://climbable_tower.tscn" id="8_rrhbu"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_10lfw"]
 
@@ -37,16 +41,24 @@ tracker = &"left_hand"
 
 [node name="LeftHand" parent="XROrigin3D/LeftController" instance=ExtResource("2_plvxx")]
 
+[node name="FunctionTeleport" parent="XROrigin3D/LeftController" instance=ExtResource("3_50ilm")]
+
+[node name="FunctionPickup" parent="XROrigin3D/LeftController" instance=ExtResource("4_vlbyv")]
+
 [node name="RightController" type="XRController3D" parent="XROrigin3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.145071, 0, 0)
 tracker = &"right_hand"
 
 [node name="RightHand" parent="XROrigin3D/RightController" instance=ExtResource("3_3t5kk")]
 
+[node name="FunctionPickup" parent="XROrigin3D/RightController" instance=ExtResource("4_vlbyv")]
+
 [node name="PlayerBody" parent="XROrigin3D" instance=ExtResource("4_ogepq")]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="XROrigin3D/PlayerBody"]
 shape = SubResource("BoxShape3D_10lfw")
+
+[node name="MovementClimb" parent="XROrigin3D" instance=ExtResource("7_o2ut6")]
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 
@@ -81,3 +93,6 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_font_sizes/font_size = 100
 text = "Enter VR"
+
+[node name="Climbable" parent="." instance=ExtResource("8_rrhbu")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.23293, -1.84433)
