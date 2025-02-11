@@ -1,6 +1,11 @@
-[gd_scene load_steps=8 format=3 uid="uid://c4lemkqe4fy0g"]
+[gd_scene load_steps=12 format=3 uid="uid://c4lemkqe4fy0g"]
 
 [ext_resource type="Script" path="res://main.gd" id="1_ovuc1"]
+[ext_resource type="PackedScene" uid="uid://b4kad2kuba1yn" path="res://addons/godot-xr-tools/hands/scenes/lowpoly/left_hand_low.tscn" id="2_plvxx"]
+[ext_resource type="PackedScene" uid="uid://l2n30mpbkdyw" path="res://addons/godot-xr-tools/hands/scenes/lowpoly/right_hand_low.tscn" id="3_3t5kk"]
+[ext_resource type="PackedScene" uid="uid://diyu06cw06syv" path="res://addons/godot-xr-tools/player/player_body.tscn" id="4_ogepq"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_10lfw"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_v1a4j"]
 size = Vector3(10, 1, 10)
@@ -24,12 +29,24 @@ script = ExtResource("1_ovuc1")
 [node name="XROrigin3D" type="XROrigin3D" parent="."]
 
 [node name="XRCamera3D" type="XRCamera3D" parent="XROrigin3D"]
+transform = Transform3D(1, 0, 0, 0, 0.955449, 0.295158, 0, -0.295158, 0.955449, 0, 0.188241, 0.5423)
 
-[node name="LeftHand" type="XRController3D" parent="XROrigin3D"]
+[node name="LeftController" type="XRController3D" parent="XROrigin3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.181222, 0, 0)
 tracker = &"left_hand"
 
-[node name="RightHand" type="XRController3D" parent="XROrigin3D"]
+[node name="LeftHand" parent="XROrigin3D/LeftController" instance=ExtResource("2_plvxx")]
+
+[node name="RightController" type="XRController3D" parent="XROrigin3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.145071, 0, 0)
 tracker = &"right_hand"
+
+[node name="RightHand" parent="XROrigin3D/RightController" instance=ExtResource("3_3t5kk")]
+
+[node name="PlayerBody" parent="XROrigin3D" instance=ExtResource("4_ogepq")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="XROrigin3D/PlayerBody"]
+shape = SubResource("BoxShape3D_10lfw")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 
